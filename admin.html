@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LocalLedger | Admin</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: system-ui, sans-serif;
+      background: #f5f7fb;
+      color: #1e293b;
+      padding: 24px;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 19px;
+    }
+
+    h2 {
+      font-size: 21px;
+    }
+
+    nav {
+      display: flex;
+      gap: 10px;
+    }
+
+    a {
+      text-decoration: none;
+      color: #1e293b;
+      font-size: 13px;
+      background: #e2e8f0;
+      padding: 5px 16px;
+      border-radius: 20px;
+    }
+
+    main {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    section {
+      background: white;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 16px;
+      flex: 1 1 240px;
+    }
+
+    h3 {
+      font-size: 15px;
+      margin-bottom: 13px;
+      border-bottom: 1px solid #f1f5f9;
+      padding-bottom: 6px;
+    }
+
+    .row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 7px 0;
+      border-bottom: 1px solid #f8fafc;
+      font-size: 14px;
+    }
+
+    small {
+      color: #64748b;
+      font-size: 11px;
+    }
+
+    button {
+      background: #f1f5f9;
+      border: 1px solid #d1d5db;
+      padding: 3px 10px;
+      border-radius: 16px;
+      font-size: 10px;
+      margin-left: 3px;
+    }
+
+    footer {
+      margin-top: 24px;
+      text-align: center;
+      font-size: 11px;
+      color: #94a3b8;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h2>📊 Admin Dashboard</h2>
+    <nav>
+      <a href="#">🏠 Home</a>
+      <a href="#">ℹ️ About Us</a>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- Manage Users -->
+    <section>
+      <h3>👥 Users</h3>
+      <div class="row">
+        <p>Elena Rossi <small>elena@mail.com</small></p>
+        <p><button>edit</button><button>suspend</button></p>
+      </div>
+      <div class="row">
+        <p>Marco Bianchi <small>marco@mail.com</small></p>
+        <p><button>edit</button><button>suspend</button></p>
+      </div>
+      <div class="row">
+        <p>Sophie Chen <small>s.chen@mail.com</small></p>
+        <p><button>edit</button><button>suspend</button></p>
+      </div>
+    </section>
+
+    <!-- Manage Restaurants -->
+    <section>
+      <h3>🍽️ Restaurants</h3>
+      <div class="row">
+        <p>Trattoria da Gino <small>Italian · Milano</small></p>
+        <p><button>edit</button><button>remove</button></p>
+      </div>
+      <div class="row">
+        <p>Sakura Ramen <small>Japanese · Roma</small></p>
+        <p><button>edit</button><button>remove</button></p>
+      </div>
+      <div class="row">
+        <p>Le Petit Café <small>French · Torino</small></p>
+        <p><button>edit</button><button>remove</button></p>
+      </div>
+    </section>
+
+    <!-- Manage Reviews -->
+    <section>
+      <h3>💬 Reviews</h3>
+      <div class="row">
+        <p>"Authentic pasta" <small>by Elena · ★★★★</small></p>
+        <p><button>view</button><button>delete</button></p>
+      </div>
+      <div class="row">
+        <p>"Perfect ramen" <small>by Marco · ★★★★★</small></p>
+        <p><button>view</button><button>delete</button></p>
+      </div>
+      <div class="row">
+        <p>"Cozy place" <small>by Sophie · ★★★★</small></p>
+        <p><button>view</button><button>delete</button></p>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>LocalLedger Admin · simple management panel</p>
+  </footer>
+
+</body>
+</html>
