@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>LocalBiz | 3x3 Reviews & 9 Restaurants</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+            background: #f8f9fc;
+            color: #1a1a2e;
+        }
+
+        /* ========== HEADER / NAVBAR ========== */
+        .header {
+            background: #7c5bb7;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 32px;
+            flex-wrap: wrap;
+            gap: 15px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        }
+        .logo {
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+            letter-spacing: -0.3px;
+        }
+        .search-bar {
+            background: white;
+            padding: 6px 18px;
+            border-radius: 40px;
+            width: 260px;
+            color: #888;
+            font-size: 14px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            margin-left: 22px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        .nav-links a:hover {
+            text-decoration: underline;
+            opacity: 0.85;
+        }
+
+        /* ========== HERO ========== */
+        .hero {
+            background: #6c4a2f;
+            color: white;
+            padding: 48px 36px;
+        }
+        .hero h1 {
+            font-size: 28px;
+            max-width: 620px;
+            margin-bottom: 14px;
+            line-height: 1.25;
+        }
+        .hero p {
+            max-width: 650px;
+            line-height: 1.5;
+            font-size: 15px;
+        }
+
+        /* ========== MAIN CONTAINER ========== */
+        .container {
+            padding: 20px 32px;
+        }
+
+        .section-title {
+            font-size: 26px;
+            font-weight: bold;
+            margin: 28px 0 22px 0;
+            border-left: 5px solid #7c5bb7;
+            padding-left: 14px;
+        }
+
+        /* ========== 3x3 REVIEWS GRID ========== */
+        .reviews-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 28px;
+            margin-bottom: 40px;
+        }
+
+        .review-card {
+            background: white;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+            border: 1px solid #eef2f8;
+        }
+
+        .review-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 18px 32px rgba(0,0,0,0.1);
+        }
+
+        .review-icon {
+            text-align: center;
+            padding: 32px 12px;
+            font-size: 52px;
+            background: #f4ede4;
+        }
+
+        .review-card:nth-child(2) .review-icon,
+        .review-card:nth-child(5) .review-icon,
+        .review-card:nth-child(8) .review-icon {
+            background: #e8f0e7;
+        }
+        .review-card:nth-child(3) .review-icon,
+        .review-card:nth-child(6) .review-icon,
+        .review-card:nth-child(9) .review-icon {
+            background: #f1eef4;
+        }
+
+        .review-info {
+            padding: 20px 20px 24px;
+        }
+
+        .stars {
+            font-size: 15px;
+            letter-spacing: 2px;
+            color: #f5a623;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .review-name {
+            font-size: 18px;
+            font-weight: 800;
+            margin: 6px 0 5px;
+        }
+
+        .review-location {
+            font-size: 12px;
+            color: #6b6b7a;
+            text-transform: uppercase;
+            font-weight: 500;
+            margin-bottom: 12px;
+            letter-spacing: 0.3px;
+        }
+
+        .review-text {
+            font-size: 13px;
+            color: #2c2c3a;
+            line-height: 1.48;
+        }
+
+        /* ========== RESTAURANTS LIST - EXACTLY 9 ITEMS ========== */
+        .resto-list {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            margin-top: 12px;
+            margin-bottom: 20px;
+        }
+
+        .resto-item {
+            background: white;
+            border-radius: 18px;
+            padding: 14px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+            border: 1px solid #e6eaf0;
+            transition: all 0.2s;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+        }
+
+        .resto-item:hover {
+            background: #fefcf7;
+            border-color: #d0d9e8;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        .resto-left {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+
+        .resto-icon {
+            width: 52px;
+            height: 52px;
+            background: #f7f3ef;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+        }
+
+        .resto-info h3 {
+            font-size: 18px;
+            font-weight: 800;
+            margin-bottom: 5px;
+        }
+
+        .resto-cuisine {
+            font-size: 11px;
+            background: #f0ebf7;
+            color: #7c5bb7;
+            padding: 3px 12px;
+            border-radius: 30px;
+            display: inline-block;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        .resto-address {
+            font-size: 12px;
+            color: #5a5a6e;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .resto-right {
+            text-align: right;
+        }
+
+        .rating {
+            font-weight: 800;
+            background: #fef2e0;
+            padding: 5px 14px;
+            border-radius: 30px;
+            font-size: 13px;
+            display: inline-block;
+            margin-bottom: 8px;
+        }
+
+        .open-status {
+            background: #dff0e4;
+            color: #1f7840;
+            font-weight: 700;
+            font-size: 11px;
+            padding: 4px 14px;
+            border-radius: 30px;
+            display: inline-block;
+        }
+
+        .closed-status {
+            background: #ffe3dc;
+            color: #bc3900;
+            font-weight: 700;
+            font-size: 11px;
+            padding: 4px 14px;
+            border-radius: 30px;
+            display: inline-block;
+        }
+
+        /* ========== FOOTER ========== */
+        .footer {
+            background: #7c5bb7;
+            color: white;
+            padding: 28px 36px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-top: 20px;
+            gap: 20px;
+            border-radius: 24px 24px 0 0;
+        }
+        .footer-left h3 {
+            font-size: 22px;
+            margin-bottom: 10px;
+        }
+        .signup-btn {
+            background: #ffcd7e;
+            border: none;
+            padding: 6px 22px;
+            border-radius: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+            font-size: 13px;
+        }
+        .signup-btn:hover {
+            background: #ffc064;
+            transform: scale(0.96);
+        }
+        .footer-right h4 {
+            margin-bottom: 6px;
+            font-size: 16px;
+        }
+        .social-icons {
+            font-size: 20px;
+            letter-spacing: 8px;
+        }
+        .copyright {
+            font-size: 11px;
+            opacity: 0.8;
+            margin-top: 8px;
+        }
+
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 900px) {
+            .reviews-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 22px;
+            }
+            .container {
+                padding: 20px 24px;
+            }
+        }
+
+        @media (max-width: 650px) {
+            .header {
+                flex-direction: column;
+                align-items: stretch;
+                text-align: center;
+            }
+            .nav-links {
+                display: flex;
+                justify-content: center;
+                gap: 18px;
+            }
+            .nav-links a {
+                margin-left: 0;
+            }
+            .hero h1 {
+                font-size: 24px;
+            }
+            .hero {
+                padding: 32px 20px;
+            }
+            .reviews-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            .resto-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .resto-right {
+                text-align: left;
+                width: 100%;
+            }
+            .section-title {
+                font-size: 22px;
+            }
+            .container {
+                padding: 16px;
+            }
+            .footer {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- navbar -->
+<div class="header">
+    <div class="logo">🍴 LocalBiz</div>
+    <div class="search-bar">🔍 Search restaurants, cuisine...</div>
+    <div class="nav-links">
+        <a href="#">Home</a>
+        <a href="#">Gallery</a>
+        <a href="#">About Us</a>
+        <a href="#">Contact Us</a>
+    </div>
+</div>
+
+<!-- hero section -->
+<div class="hero">
+    <h1>Discover the best restaurants, cafés, bars & brunch spots around you.</h1>
+    <p>Explore honest reviews, share your experiences, and help local businesses grow through real customer feedback.</p>
+</div>
+
+<!-- main container -->
+<div class="container">
+
+    <!-- recent reviews title -->
+    <div class="section-title">📝 Recent Reviews</div>
+
+    <!-- EXACT 3x3 GRID: 9 review cards -->
+    <div class="reviews-grid">
+        <!-- 1 -->
+        <div class="review-card">
+            <div class="review-icon">🍲</div>
+            <div class="review-info">
+                <div class="stars">★★★★★</div>
+                <div class="review-name">Jimbu Thakali Kitchen</div>
+                <div class="review-location">Chantelville, Lalitpur</div>
+                <div class="review-text">The food is flavourful, fresh, and served in generous portions. Authentic Nepali taste!</div>
+            </div>
+        </div>
+        <!-- 2 -->
+        <div class="review-card">
+            <div class="review-icon">🍽️</div>
+            <div class="review-info">
+                <div class="stars">★★★★★</div>
+                <div class="review-name">Soaltee Crowne Plaza</div>
+                <div class="review-location">Kalimati, Kathmandu</div>
+                <div class="review-text">Elegant ambiance and delicious food. A wonderful fine dining experience.</div>
+            </div>
+        </div>
+        <!-- 3 -->
+        <div class="review-card">
+            <div class="review-icon">☕</div>
+            <div class="review-info">
+                <div class="stars">★☆☆☆☆</div>
+                <div class="review-name">Oppazz Coffee House</div>
+                <div class="review-location">Jhamsikhel, Lalitpur</div>
+                <div class="review-text">Disappointing experience. Service was slow and coffee was cold.</div>
+            </div>
+        </div>
+        <!-- 4 -->
+        <div class="review-card">
+            <div class="review-icon">🍣</div>
+            <div class="review-info">
+                <div class="stars">★★★★½</div>
+                <div class="review-name">Sakura Buchi Bar</div>
+                <div class="review-location">Thamel, Kathmandu</div>
+                <div class="review-text">Incredible sushi rolls and cozy atmosphere. The sake selection is amazing!</div>
+            </div>
+        </div>
+        <!-- 5 -->
+        <div class="review-card">
+            <div class="review-icon">🥗</div>
+            <div class="review-info">
+                <div class="stars">★★★★☆</div>
+                <div class="review-name">Garden Bistro</div>
+                <div class="review-location">Patan, Lalitpur</div>
+                <div class="review-text">Fresh vegan bowls and organic smoothies. A hidden gem for healthy food lovers.</div>
+            </div>
+        </div>
+        <!-- 6 -->
+        <div class="review-card">
+            <div class="review-icon">🍜</div>
+            <div class="review-info">
+                <div class="stars">★★★★★</div>
+                <div class="review-name">Momo Magic Lounge</div>
+                <div class="review-location">Baneshwor, Kathmandu</div>
+                <div class="review-text">Best jhol momo in town! Super juicy and authentic spices. Highly recommend.</div>
+            </div>
+        </div>
+        <!-- 7 -->
+        <div class="review-card">
+            <div class="review-icon">🍕</div>
+            <div class="review-info">
+                <div class="stars">★★★★☆</div>
+                <div class="review-name">Rosemary Artisan Cafe</div>
+                <div class="review-location">Lazimpat, Kathmandu</div>
+                <div class="review-text">Wood-fired pizza and tiramisu are fantastic. Cozy vibes for date night.</div>
+            </div>
+        </div>
+        <!-- 8 -->
+        <div class="review-card">
+            <div class="review-icon">🍛</div>
+            <div class="review-info">
+                <div class="stars">★★★★½</div>
+                <div class="review-name">The Spice Route</div>
+                <div class="review-location">Lazimpat, Kathmandu</div>
+                <div class="review-text">Butter chicken and garlic naan are perfection. Royal ambience.</div>
+            </div>
+        </div>
+        <!-- 9 -->
+        <div class="review-card">
+            <div class="review-icon">☕</div>
+            <div class="review-info">
+                <div class="stars">★★★★☆</div>
+                <div class="review-name">Himalayan Java House</div>
+                <div class="review-location">Durbar Marg, Kathmandu</div>
+                <div class="review-text">Great espresso and mountain-view terrace. Perfect for remote work.</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- restaurants section title -->
+    <div class="section-title">🍽️ Restaurants</div>
+    
+    <!-- EXACTLY 9 RESTAURANTS (no more, no less) -->
+    <div class="resto-list">
+        <!-- 1. Jimbu Thakali Kitchen -->
+        <div class="resto-item">
+            <div class="resto-left">
+                <div class="resto-icon">🍛</div>
+                <div class="resto-info">
+                    <h3>Jimbu Thakali Kitchen</h3>
+                    <div class="resto-cuisine">Nepali - Traditional</div>
+                    <div class="resto-address">📍 Chantelville, Lalitpur</div>
+                </div>
+            </div>
+            <div class="resto-right">
+                <div class="rating">★★★★★</div>
+                <div class="open-status">Open</div>
+            </div>
+        </div>
+
+        <!-- 2. Soaltee Crowne Plaza -->
+        <div class="resto-item">
+            <div class="resto-left">
+                <div class="resto-icon">🍷</div>
+                <div class="resto-info">
+                    <h3>Soaltee Crowne Plaza</h3>
+                    <div class="resto-cuisine">Fine Dining - International</div>
+                    <div class="resto-address">📍 Kalimati, Kathmandu</div>
+                </div>
+            </div>
+            <div class="resto-right">
+                <div class="rating">★★★★★</div>
+                <div class="open-status">Open</div>
+            </div>
+        </div>
+
+        <!-- 3. Garden Bistro -->
+        <div class="resto-item">
+            <div class="resto-left">
+                <div class="resto-icon">🥗</div>
+                <div class="resto-info">
+                    <h3>Garden Bistro</h3>
+                    <div class="resto-cuisine">Healthy - Vegan</div>
+                    <div class="resto-address">📍 Patan, Lalitpur</div>
+                </div>
+            </div>
+            <div class="resto-right">
+                <div class="rating">★★★★★</div>
+                <div class="open-status">Open</div>
+            </div>
+        </div>
+
+        <!-- 4. Sakura Buchi Bar -->
+        <div class="resto-item">
+            <div class="resto-left">
+                <div class="resto-icon">🍣</div>
+                <div class="resto-info">
+                    <h3>Sakura Buchi Bar</h3>
+                    <div class="resto-cuisine">Japanese - Sushi</div>
+                    <div class="resto-address">📍 Thamel, Kathmandu</div>
+                </div>
+            </div>
+            <div class="resto-right">
+                <div class="rating">★★★★★</div>
+                <div class="open-status">Open</div>
+            </div>
+        </div>
+
+        <!-- 5. Oppazz Coffee House (Closed) -->
+        <div class="resto-item">
+            <div class="resto-left">
+                <div class="resto-icon">☕</div>
+                <div class="resto-info">
+                    <h3>Oppazz Coffee House</h3>
+                    <div class="resto-cuisine">Cafe - Brunch</div>
+                    <div class="resto-address">📍 Jhamsikhel, Lalitpur</div>
+                </div>
+            </div>
+            <div class="resto-right">
+                <div class="rating">★★☆☆☆</div>
+                <div class="closed-status">Closed</div>
+            </div>
+        </div>
+
+        <!-- 6. Momo Magic Lounge -->
+        <div class="resto-item">
+            <div class="resto-left">
+                <div class="resto-icon">🍜</div>
+                <div class="resto-info">
+                    <h3>Momo Magic Lounge</h3>
+                    <div class="resto-cuisine">Asian - Dumplings</div>
+                    <div class="resto-address">📍 Baneshwor, Kathmandu</div>
+                </div>
+            </div>
+            <div class="resto-right">
+                <div class="rating">★★★★½</div>
+                <div class="open-status">Open</div>
+            </div>
+        </div>
+
+        <!-- 7. Rosemary Artisan Cafe -->
+        <div class="resto-item">
+            <div class="resto-left">
+                <div class="resto-icon">🍕</div>
+                <div class="resto-info">
+                    <h3>Rosemary Artisan Cafe</h3>
+                    <div class="resto-cuisine">Italian - Woodfire</div>
+                    <div class="resto-address">📍 Lazimpat, Kathmandu</div>
+                </div>
+            </div>
+            <div class="resto-right">
+                <div class="rating">★★★★☆</div>
+                <div class="open-status">Open</div>
+            </div>
+        </div>
+
+        <!-- 8. The Spice Route -->
+        <div class="resto-item">
+            <div class="resto-left">
+                <div class="resto-icon">🍛</div>
+                <div class="resto-info">
+                    <h3>The Spice Route</h3>
+                    <div class="resto-cuisine">Indian - Mughlai</div>
+                    <div class="resto-address">📍 Lazimpat, Kathmandu</div>
+                </div>
+            </div>
+            <div class="resto-right">
+                <div class="rating">★★★★½</div>
+                <div class="open-status">Open</div>
+            </div>
+        </div>
+
+        <!-- 9. Himalayan Java House -->
+        <div class="resto-item">
+            <div class="resto-left">
+                <div class="resto-icon">☕</div>
+                <div class="resto-info">
+                    <h3>Himalayan Java House</h3>
+                    <div class="resto-cuisine">Coffee - Bakery</div>
+                    <div class="resto-address">📍 Durbar Marg, Kathmandu</div>
+                </div>
+            </div>
+            <div class="resto-right">
+                <div class="rating">★★★★☆</div>
+                <div class="open-status">Open</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- footer -->
+<div class="footer">
+    <div class="footer-left">
+        <h3>LocalBiz</h3>
+        <button class="signup-btn" onclick="alert('✨ Join LocalBiz community! (Demo static page) ✨')">Sign Up</button>
+    </div>
+    <div class="footer-right">
+        <h4>Follow Us</h4>
+        <div class="social-icons">📘 📸 ✖️ 🎵</div>
+        <div class="copyright">Copyright 2023 LocalBiz</div>
+    </div>
+</div>
+
+</body>
+</html>

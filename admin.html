@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>LocalLedger | Admin</title>
+  <title>LocalBiz | Admin Dashboard</title>
   <style>
     * {
       margin: 0;
@@ -12,157 +12,572 @@
     }
 
     body {
-      font-family: system-ui, sans-serif;
-      background: #f5f7fb;
-      color: #1e293b;
-      padding: 24px;
+      font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+      background: #f8f9fc;
+      color: #1a1a2e;
+      padding: 0;
     }
 
-    header {
+    /* ========== HEADER / NAVBAR (LocalBiz style) ========== */
+    .header {
+      background: #7c5bb7;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 19px;
-    }
-
-    h2 {
-      font-size: 21px;
-    }
-
-    nav {
-      display: flex;
-      gap: 10px;
-    }
-
-    a {
-      text-decoration: none;
-      color: #1e293b;
-      font-size: 13px;
-      background: #e2e8f0;
-      padding: 5px 16px;
-      border-radius: 20px;
-    }
-
-    main {
-      display: flex;
-      gap: 16px;
+      padding: 14px 32px;
       flex-wrap: wrap;
+      gap: 15px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
     }
 
-    section {
+    .logo {
+      color: white;
+      font-size: 24px;
+      font-weight: bold;
+      letter-spacing: -0.3px;
+    }
+
+    .search-bar {
       background: white;
-      border: 1px solid #e2e8f0;
-      border-radius: 12px;
-      padding: 16px;
-      flex: 1 1 240px;
+      padding: 6px 18px;
+      border-radius: 40px;
+      width: 260px;
+      color: #888;
+      font-size: 14px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
     }
 
-    h3 {
-      font-size: 15px;
-      margin-bottom: 13px;
-      border-bottom: 1px solid #f1f5f9;
-      padding-bottom: 6px;
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      margin-left: 22px;
+      font-size: 14px;
+      font-weight: 500;
     }
 
+    .nav-links a:hover {
+      text-decoration: underline;
+      opacity: 0.85;
+    }
+
+    /* ========== MAIN CONTAINER ========== */
+    .container {
+      padding: 28px 32px;
+    }
+
+    .admin-title {
+      font-size: 26px;
+      font-weight: bold;
+      margin-bottom: 24px;
+      border-left: 5px solid #7c5bb7;
+      padding-left: 14px;
+      color: #1a1a2e;
+    }
+
+    /* ========== DASHBOARD GRID ========== */
+    .dashboard-grid {
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+
+    .card {
+      background: white;
+      border: 1px solid #e6eaf0;
+      border-radius: 20px;
+      padding: 20px;
+      flex: 1 1 320px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    }
+
+    .card-header {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 16px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #f0ebf7;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #2c2c3a;
+    }
+
+    /* row styles */
     .row {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 7px 0;
-      border-bottom: 1px solid #f8fafc;
-      font-size: 14px;
+      padding: 12px 0;
+      border-bottom: 1px solid #f1f5f9;
+      font-size: 13px;
     }
 
-    small {
-      color: #64748b;
+    .row:last-child {
+      border-bottom: none;
+    }
+
+    .user-info, .resto-info, .review-info {
+      flex: 1;
+    }
+
+    .user-name {
+      font-weight: 600;
+      color: #1a1a2e;
+    }
+
+    .user-email, .resto-address, .review-meta {
       font-size: 11px;
+      color: #64748b;
+      display: block;
+      margin-top: 2px;
     }
 
-    button {
+    .resto-cuisine {
+      font-size: 11px;
+      background: #f0ebf7;
+      color: #7c5bb7;
+      padding: 2px 8px;
+      border-radius: 20px;
+      display: inline-block;
+      margin-top: 3px;
+    }
+
+    .stars-small {
+      color: #f5a623;
+      font-size: 11px;
+      letter-spacing: 1px;
+    }
+
+    .review-text {
+      font-size: 12px;
+      font-weight: 500;
+      color: #1e293b;
+    }
+
+    .action-buttons {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+    }
+
+    .btn {
       background: #f1f5f9;
       border: 1px solid #d1d5db;
-      padding: 3px 10px;
-      border-radius: 16px;
+      padding: 4px 12px;
+      border-radius: 30px;
       font-size: 10px;
-      margin-left: 3px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+      color: #334155;
     }
 
-    footer {
-      margin-top: 24px;
-      text-align: center;
+    .btn:hover {
+      background: #e2e8f0;
+      transform: scale(0.96);
+    }
+
+    .btn-danger {
+      background: #fee2e2;
+      border-color: #fecaca;
+      color: #b91c1c;
+    }
+
+    .btn-danger:hover {
+      background: #fecaca;
+    }
+
+    .btn-warning {
+      background: #fff3e3;
+      border-color: #ffe4b5;
+      color: #b45309;
+    }
+
+    /* status badges */
+    .status-badge {
+      font-size: 9px;
+      padding: 2px 8px;
+      border-radius: 30px;
+      display: inline-block;
+      margin-right: 6px;
+    }
+    .status-open {
+      background: #dff0e4;
+      color: #1f7840;
+    }
+    .status-closed {
+      background: #ffe3dc;
+      color: #bc3900;
+    }
+
+    /* ========== FOOTER (LocalBiz style) ========== */
+    .footer {
+      background: #7c5bb7;
+      color: white;
+      padding: 28px 36px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-top: 40px;
+      gap: 20px;
+      border-radius: 24px 24px 0 0;
+    }
+
+    .footer-left h3 {
+      font-size: 22px;
+      margin-bottom: 10px;
+    }
+
+    .signup-btn {
+      background: #ffcd7e;
+      border: none;
+      padding: 6px 22px;
+      border-radius: 40px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.2s;
+      font-size: 13px;
+      color: #3a2a1c;
+    }
+
+    .signup-btn:hover {
+      background: #ffc064;
+      transform: scale(0.96);
+    }
+
+    .footer-right h4 {
+      margin-bottom: 6px;
+      font-size: 16px;
+    }
+
+    .social-icons {
+      font-size: 20px;
+      letter-spacing: 8px;
+    }
+
+    .copyright {
       font-size: 11px;
-      color: #94a3b8;
+      opacity: 0.8;
+      margin-top: 8px;
+    }
+
+    /* ========== RESPONSIVE ========== */
+    @media (max-width: 900px) {
+      .header {
+        flex-direction: column;
+        align-items: stretch;
+        text-align: center;
+        padding: 14px 20px;
+      }
+      .nav-links {
+        display: flex;
+        justify-content: center;
+        gap: 18px;
+      }
+      .nav-links a {
+        margin-left: 0;
+      }
+      .container {
+        padding: 20px;
+      }
+      .dashboard-grid {
+        flex-direction: column;
+      }
+      .footer {
+        flex-direction: column;
+        text-align: center;
+      }
+    }
+
+    @media (max-width: 550px) {
+      .row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+      }
+      .action-buttons {
+        align-self: flex-end;
+      }
     }
   </style>
 </head>
 <body>
 
-  <header>
-    <h2>📊 Admin Dashboard</h2>
-    <nav>
-      <a href="#">🏠 Home</a>
-      <a href="#">ℹ️ About Us</a>
-    </nav>
-  </header>
+  <!-- LocalBiz style header (exactly from the original design) -->
+  <div class="header">
+    <div class="logo">🍴 LocalBiz</div>
+    <div class="search-bar">🔍 Admin dashboard...</div>
+    <div class="nav-links">
+      <a href="#">Home</a>
+      <a href="#">Gallery</a>
+      <a href="#">About Us</a>
+      <a href="#">Contact Us</a>
+    </div>
+  </div>
 
-  <main>
+  <!-- main admin content -->
+  <div class="container">
+    <div class="admin-title">📊 Admin Dashboard</div>
 
-    <!-- Manage Users -->
-    <section>
-      <h3>👥 Users</h3>
-      <div class="row">
-        <p>Elena Rossi <small>elena@mail.com</small></p>
-        <p><button>edit</button><button>suspend</button></p>
+    <div class="dashboard-grid">
+      <!-- Manage Users Card (sample users with realistic data) -->
+      <div class="card">
+        <div class="card-header">
+          👥 Users
+        </div>
+        <div class="row">
+          <div class="user-info">
+            <span class="user-name">Elena Rossi</span>
+            <span class="user-email">elena@localbiz.com</span>
+          </div>
+          <div class="action-buttons">
+            <button class="btn">edit</button>
+            <button class="btn btn-warning">suspend</button>
+          </div>
+        </div>
+        <div class="row">
+          <div class="user-info">
+            <span class="user-name">Marco Bianchi</span>
+            <span class="user-email">marco@localbiz.com</span>
+          </div>
+          <div class="action-buttons">
+            <button class="btn">edit</button>
+            <button class="btn btn-warning">suspend</button>
+          </div>
+        </div>
+        <div class="row">
+          <div class="user-info">
+            <span class="user-name">Sophie Chen</span>
+            <span class="user-email">sophie@localbiz.com</span>
+          </div>
+          <div class="action-buttons">
+            <button class="btn">edit</button>
+            <button class="btn btn-warning">suspend</button>
+          </div>
+        </div>
+        <div class="row">
+          <div class="user-info">
+            <span class="user-name">Aarav Sharma</span>
+            <span class="user-email">aarav@localbiz.com</span>
+          </div>
+          <div class="action-buttons">
+            <button class="btn">edit</button>
+            <button class="btn btn-warning">suspend</button>
+          </div>
+        </div>
+        <div class="row">
+          <div class="user-info">
+            <span class="user-name">Priya K.C.</span>
+            <span class="user-email">priya@localbiz.com</span>
+          </div>
+          <div class="action-buttons">
+            <button class="btn">edit</button>
+            <button class="btn btn-warning">suspend</button>
+          </div>
+        </div>
       </div>
-      <div class="row">
-        <p>Marco Bianchi <small>marco@mail.com</small></p>
-        <p><button>edit</button><button>suspend</button></p>
-      </div>
-      <div class="row">
-        <p>Sophie Chen <small>s.chen@mail.com</small></p>
-        <p><button>edit</button><button>suspend</button></p>
-      </div>
-    </section>
 
-    <!-- Manage Restaurants -->
-    <section>
-      <h3>🍽️ Restaurants</h3>
-      <div class="row">
-        <p>Trattoria da Gino <small>Italian · Milano</small></p>
-        <p><button>edit</button><button>remove</button></p>
+      <!-- Manage Restaurants Card - EXACT 5 restaurants from homepage -->
+      <div class="card">
+        <div class="card-header">
+          🍽️ Restaurants
+        </div>
+        <!-- 1. Jimbu Thakali Kitchen -->
+        <div class="row">
+          <div class="resto-info">
+            <span class="user-name">Jimbu Thakali Kitchen</span>
+            <div class="resto-cuisine">Nepali - Traditional</div>
+            <span class="resto-address">📍 Chantelville, Lalitpur</span>
+          </div>
+          <div class="action-buttons">
+            <span class="status-badge status-open">Open</span>
+            <button class="btn">edit</button>
+            <button class="btn btn-danger">remove</button>
+          </div>
+        </div>
+        <!-- 2. Soaltee Crowne Plaza -->
+        <div class="row">
+          <div class="resto-info">
+            <span class="user-name">Soaltee Crowne Plaza</span>
+            <div class="resto-cuisine">Fine Dining - International</div>
+            <span class="resto-address">📍 Kalimati, Kathmandu</span>
+          </div>
+          <div class="action-buttons">
+            <span class="status-badge status-open">Open</span>
+            <button class="btn">edit</button>
+            <button class="btn btn-danger">remove</button>
+          </div>
+        </div>
+        <!-- 3. Garden Bistro -->
+        <div class="row">
+          <div class="resto-info">
+            <span class="user-name">Garden Bistro</span>
+            <div class="resto-cuisine">Healthy - Vegan</div>
+            <span class="resto-address">📍 Patan, Lalitpur</span>
+          </div>
+          <div class="action-buttons">
+            <span class="status-badge status-open">Open</span>
+            <button class="btn">edit</button>
+            <button class="btn btn-danger">remove</button>
+          </div>
+        </div>
+        <!-- 4. Sakura Buchi Bar -->
+        <div class="row">
+          <div class="resto-info">
+            <span class="user-name">Sakura Buchi Bar</span>
+            <div class="resto-cuisine">Japanese - Sushi</div>
+            <span class="resto-address">📍 Thamel, Kathmandu</span>
+          </div>
+          <div class="action-buttons">
+            <span class="status-badge status-open">Open</span>
+            <button class="btn">edit</button>
+            <button class="btn btn-danger">remove</button>
+          </div>
+        </div>
+        <!-- 5. Oppazz Coffee House (Closed) -->
+        <div class="row">
+          <div class="resto-info">
+            <span class="user-name">Oppazz Coffee House</span>
+            <div class="resto-cuisine">Cafe - Brunch</div>
+            <span class="resto-address">📍 Jhamsikhel, Lalitpur</span>
+          </div>
+          <div class="action-buttons">
+            <span class="status-badge status-closed">Closed</span>
+            <button class="btn">edit</button>
+            <button class="btn btn-danger">remove</button>
+          </div>
+        </div>
       </div>
-      <div class="row">
-        <p>Sakura Ramen <small>Japanese · Roma</small></p>
-        <p><button>edit</button><button>remove</button></p>
-      </div>
-      <div class="row">
-        <p>Le Petit Café <small>French · Torino</small></p>
-        <p><button>edit</button><button>remove</button></p>
-      </div>
-    </section>
 
-    <!-- Manage Reviews -->
-    <section>
-      <h3>💬 Reviews</h3>
-      <div class="row">
-        <p>"Authentic pasta" <small>by Elena · ★★★★</small></p>
-        <p><button>view</button><button>delete</button></p>
+      <!-- Manage Reviews Card - EXACT 5 reviews from homepage -->
+      <div class="card">
+        <div class="card-header">
+          💬 Reviews
+        </div>
+        <!-- Review 1: Jimbu Thakali -->
+        <div class="row">
+          <div class="review-info">
+            <span class="review-text">"The food is flavourful, fresh, and served in generous portions."</span>
+            <div class="review-meta">by Elena Rossi · <span class="stars-small">★★★★★</span> · Jimbu Thakali Kitchen</div>
+          </div>
+          <div class="action-buttons">
+            <button class="btn">view</button>
+            <button class="btn btn-danger">delete</button>
+          </div>
+        </div>
+        <!-- Review 2: Soaltee Crowne Plaza -->
+        <div class="row">
+          <div class="review-info">
+            <span class="review-text">"Elegant ambiance and delicious food. A wonderful fine dining experience."</span>
+            <div class="review-meta">by Marco Bianchi · <span class="stars-small">★★★★★</span> · Soaltee Crowne Plaza</div>
+          </div>
+          <div class="action-buttons">
+            <button class="btn">view</button>
+            <button class="btn btn-danger">delete</button>
+          </div>
+        </div>
+        <!-- Review 3: Oppazz Coffee House -->
+        <div class="row">
+          <div class="review-info">
+            <span class="review-text">"Disappointing experience. Service was slow and coffee was cold."</span>
+            <div class="review-meta">by Sophie Chen · <span class="stars-small">★☆☆☆☆</span> · Oppazz Coffee House</div>
+          </div>
+          <div class="action-buttons">
+            <button class="btn">view</button>
+            <button class="btn btn-danger">delete</button>
+          </div>
+        </div>
+        <!-- Review 4: Sakura Buchi Bar -->
+        <div class="row">
+          <div class="review-info">
+            <span class="review-text">"Incredible sushi rolls and cozy atmosphere. The sake selection is amazing!"</span>
+            <div class="review-meta">by Aarav Sharma · <span class="stars-small">★★★★½</span> · Sakura Buchi Bar</div>
+          </div>
+          <div class="action-buttons">
+            <button class="btn">view</button>
+            <button class="btn btn-danger">delete</button>
+          </div>
+        </div>
+        <!-- Review 5: Garden Bistro -->
+        <div class="row">
+          <div class="review-info">
+            <span class="review-text">"Fresh vegan bowls and organic smoothies. A hidden gem for healthy food lovers."</span>
+            <div class="review-meta">by Priya K.C. · <span class="stars-small">★★★★☆</span> · Garden Bistro</div>
+          </div>
+          <div class="action-buttons">
+            <button class="btn">view</button>
+            <button class="btn btn-danger">delete</button>
+          </div>
+        </div>
       </div>
-      <div class="row">
-        <p>"Perfect ramen" <small>by Marco · ★★★★★</small></p>
-        <p><button>view</button><button>delete</button></p>
+    </div>
+
+    <!-- Second row: Platform stats and quick actions (no top rated section) -->
+    <div class="dashboard-grid" style="margin-top: 8px;">
+      <div class="card">
+        <div class="card-header">
+          📈 Platform Stats
+        </div>
+        <div class="row">
+          <span>Total Users</span>
+          <strong>1,453</strong>
+        </div>
+        <div class="row">
+          <span>Total Restaurants</span>
+          <strong>24</strong>
+        </div>
+        <div class="row">
+          <span>Total Reviews</span>
+          <strong>892</strong>
+        </div>
+        <div class="row">
+          <span>Active Reports</span>
+          <strong>2</strong>
+        </div>
       </div>
-      <div class="row">
-        <p>"Cozy place" <small>by Sophie · ★★★★</small></p>
-        <p><button>view</button><button>delete</button></p>
+      <div class="card">
+        <div class="card-header">
+          ⚙️ Quick Actions
+        </div>
+        <div class="row">
+          <span>➕ Add new restaurant</span>
+          <button class="btn">create</button>
+        </div>
+        <div class="row">
+          <span>👑 Promote to admin</span>
+          <button class="btn">manage</button>
+        </div>
+        <div class="row">
+          <span>📢 Announcement</span>
+          <button class="btn">post</button>
+        </div>
+        <div class="row">
+          <span>📅 Export reports</span>
+          <button class="btn">export</button>
+        </div>
       </div>
-    </section>
+    </div>
+  </div>
 
-  </main>
-
-  <footer>
-    <p>LocalLedger Admin · simple management panel</p>
-  </footer>
-
+  <!-- LocalBiz style footer (exactly matching the original) -->
+  <div class="footer">
+    <div class="footer-left">
+      <h3>LocalBiz</h3>
+      <button class="signup-btn" onclick="alert('✨ Admin panel — Manage your local business community ✨')">Sign Up</button>
+    </div>
+    <div class="footer-right">
+      <h4>Follow Us</h4>
+      <div class="social-icons">📘 📸 ✖️ 🎵</div>
+      <div class="copyright">Copyright 2023 LocalBiz</div>
+    </div>
+  </div>
 </body>
 </html>
