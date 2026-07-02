@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LocalBiz | Reviews</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f7fb;
+            color: #1a1a2e;
+        }
+
+        /* Header */
+        .top {
+            background: #7c5bb7;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 24px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .brand {
+            color: white;
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        /* Search Form */
+        .search-box {
+            display: flex;
+            align-items: center;
+        }
+        .search-box input {
+            background: white;
+            padding: 5px 14px;
+            border-radius: 30px;
+            border: none;
+            width: 220px;
+            color: #333;
+            font-size: 13px;
+            outline: none;
+        }
+        .search-box input::placeholder {
+            color: #888;
+        }
+        .search-box button {
+            background: transparent;
+            border: none;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            margin-left: -30px;
+        }
+
+        .menu a {
+            color: white;
+            text-decoration: none;
+            margin-left: 18px;
+            font-size: 13px;
+        }
+        .menu a:hover {
+            text-decoration: underline;
+        }
+
+        /* Container */
+        .wrap {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 20px 24px;
+        }
+
+        .title {
+            font-size: 26px;
+            font-weight: bold;
+            margin: 16px 0 20px 0;
+            border-left: 4px solid #7c5bb7;
+            padding-left: 12px;
+        }
+
+        /* Restaurant Details */
+        .card {
+            background: white;
+            border-radius: 16px;
+            padding: 20px 24px;
+            border: 1px solid #e2e8f0;
+            margin-bottom: 28px;
+        }
+
+        .head {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 14px;
+            margin-bottom: 14px;
+        }
+        .head h2 {
+            font-size: 24px;
+        }
+
+        .info {
+            display: flex;
+            gap: 14px;
+            flex-wrap: wrap;
+            margin-top: 4px;
+            font-size: 13px;
+            color: #555;
+        }
+        .tag {
+            background: #f0ebf7;
+            color: #7c5bb7;
+            padding: 2px 12px;
+            border-radius: 30px;
+            font-weight: 600;
+        }
+        .status {
+            background: #dff0e4;
+            color: #1f7840;
+            padding: 2px 12px;
+            border-radius: 30px;
+            font-weight: 600;
+        }
+        .stars-big {
+            font-size: 24px;
+            font-weight: 800;
+            color: #f5a623;
+        }
+        .sub {
+            font-size: 13px;
+            color: #64748b;
+        }
+        .stats {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            font-size: 13px;
+            margin: 6px 0 4px 0;
+        }
+
+        /* Review Items - stars on the right */
+        .item {
+            background: #fafbfc;
+            border-radius: 12px;
+            padding: 14px 18px;
+            border: 1px solid #edf0f5;
+            margin-bottom: 12px;
+        }
+        .item-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-bottom: 4px;
+        }
+        .name {
+            font-weight: 700;
+            font-size: 14px;
+        }
+        .star {
+            color: #f5a623;
+            font-size: 13px;
+            text-align: right;
+        }
+        .date {
+            font-size: 11px;
+            color: #94a3b8;
+            text-align: right;
+        }
+        .text {
+            font-size: 13px;
+            color: #334155;
+            margin-top: 4px;
+        }
+
+        /* Review Form */
+        .form-box {
+            background: white;
+            border-radius: 16px;
+            padding: 20px 24px;
+            border: 1px solid #e2e8f0;
+            margin-bottom: 28px;
+        }
+        .form-box h3 {
+            font-size: 20px;
+            margin-bottom: 4px;
+        }
+        .hint {
+            color: #64748b;
+            font-size: 13px;
+            margin-bottom: 16px;
+        }
+
+        .group {
+            margin-bottom: 14px;
+        }
+        .group label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 4px;
+            color: #334155;
+        }
+        .group input,
+        .group textarea {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 10px;
+            font-size: 14px;
+            font-family: inherit;
+        }
+        .group textarea {
+            min-height: 70px;
+            resize: vertical;
+        }
+
+        .rating-box {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .rating-box label {
+            display: flex;
+            align-items: center;
+            gap: 3px;
+            font-size: 13px;
+            cursor: pointer;
+        }
+        .radio {
+            width: 15px;
+            height: 15px;
+            accent-color: #7c5bb7;
+        }
+
+        .btn {
+            padding: 8px 24px;
+            border-radius: 30px;
+            border: none;
+            font-size: 13px;
+            font-weight: bold;
+            cursor: pointer;
+            font-family: inherit;
+        }
+        .btn-go {
+            background: #7c5bb7;
+            color: white;
+        }
+        .btn-go:hover {
+            background: #6a4a9e;
+        }
+        .btn-stop {
+            background: #f1f5f9;
+            border: 1px solid #d1d5db;
+            margin-left: 8px;
+        }
+        .btn-stop:hover {
+            background: #e2e8f0;
+        }
+
+        /* Footer */
+        .foot {
+            background: #7c5bb7;
+            color: white;
+            padding: 20px 28px;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+        .foot h3 {
+            font-size: 20px;
+            margin-bottom: 6px;
+        }
+        .social {
+            font-size: 18px;
+            letter-spacing: 6px;
+        }
+        .copy {
+            font-size: 11px;
+            opacity: 0.8;
+            margin-top: 4px;
+        }
+
+        /* Responsive */
+        @media (max-width: 650px) {
+            .top {
+                flex-direction: column;
+                text-align: center;
+            }
+            .search-box {
+                width: 100%;
+            }
+            .search-box input {
+                width: 100%;
+            }
+            .menu a {
+                margin: 0 8px;
+            }
+            .wrap {
+                padding: 12px;
+            }
+            .head {
+                flex-direction: column;
+            }
+            .foot {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Header -->
+<div class="top">
+    <div class="brand">🍴 LocalBiz</div>
+
+    <!-- Search Form -->
+    <form class="search-box" action="#">
+        <input type="text" placeholder="🔍 Search restaurants...">
+        <button type="submit">🔍</button>
+    </form>
+
+    <div class="menu">
+        <a href="#">Home</a>
+        <a href="#">My Reviews</a>
+        <a href="#">About</a>
+        <a href="#">Contact</a>
+    </div>
+</div>
+
+<!-- Main -->
+<div class="wrap">
+
+    <!-- Restaurant Details -->
+    <div class="title">📋 Restaurant Details</div>
+
+    <div class="card">
+        <div class="head">
+            <div>
+                <h2>Jimbu Thakali Kitchen</h2>
+                <div class="info">
+                    <span class="tag">Nepali - Traditional</span>
+                    <span>📍 Chantelville, Lalitpur</span>
+                    <span class="status">● Open</span>
+                </div>
+            </div>
+            <div>
+                <div class="stars-big">★★★★★</div>
+                <div class="sub">4.9 · 128 reviews</div>
+            </div>
+        </div>
+
+        <div class="stats">
+            <span>🍽️ 5.0 Food</span>
+            <span>🏠 4.8 Ambiance</span>
+            <span>👨‍🍳 4.7 Service</span>
+            <span>💰 4.5 Value</span>
+        </div>
+
+        <h3 style="margin:18px 0 14px 0; font-size:18px;">💬 Customer Reviews</h3>
+
+        <!-- Review 1 -->
+        <div class="item">
+            <div class="item-head">
+                <span class="name">Elena Rossi</span>
+                <span class="star">★★★★★</span>
+            </div>
+            <div class="item-head">
+                <span></span>
+                <span class="date">2 days ago</span>
+            </div>
+            <div class="text">The food is flavourful, fresh, and served in generous portions. Authentic Nepali taste!</div>
+        </div>
+
+        <!-- Review 2 -->
+        <div class="item">
+            <div class="item-head">
+                <span class="name">Aarav Sharma</span>
+                <span class="star">★★★★★</span>
+            </div>
+            <div class="item-head">
+                <span></span>
+                <span class="date">1 week ago</span>
+            </div>
+            <div class="text">One of the best thali places in Lalitpur. The jimbu aroma is incredible.</div>
+        </div>
+
+        <!-- Review 3 -->
+        <div class="item">
+            <div class="item-head">
+                <span class="name">Priya K.C.</span>
+                <span class="star">★★★★☆</span>
+            </div>
+            <div class="item-head">
+                <span></span>
+                <span class="date">2 weeks ago</span>
+            </div>
+            <div class="text">Great food but service was a bit slow when crowded. Still worth visiting.</div>
+        </div>
+
+        <!-- Review 4 -->
+        <div class="item">
+            <div class="item-head">
+                <span class="name">Marco Bianchi</span>
+                <span class="star">★★★★★</span>
+            </div>
+            <div class="item-head">
+                <span></span>
+                <span class="date">3 weeks ago</span>
+            </div>
+            <div class="text">Absolutely delicious! The dal and vegetables were perfect.</div>
+        </div>
+
+        <!-- Review 5 -->
+        <div class="item">
+            <div class="item-head">
+                <span class="name">Sophie Chen</span>
+                <span class="star">★★★★☆</span>
+            </div>
+            <div class="item-head">
+                <span></span>
+                <span class="date">1 month ago</span>
+            </div>
+            <div class="text">Loved the traditional atmosphere and friendly staff.</div>
+        </div>
+    </div>
+
+    <!-- Write a Review -->
+    <div class="title">✏️ Write a Review</div>
+
+    <div class="form-box">
+        <h3>Share your experience</h3>
+        <div class="hint">Your feedback helps others discover great places</div>
+
+        <form>
+            <div class="group">
+                <label for="name">Your Name *</label>
+                <input type="text" id="name" placeholder="Enter your name" required>
+            </div>
+
+            <div class="group">
+                <label>Rating *</label>
+                <div class="rating-box">
+                    <label><input class="radio" type="radio" name="rating" value="1" required> ⭐</label>
+                    <label><input class="radio" type="radio" name="rating" value="2"> ⭐⭐</label>
+                    <label><input class="radio" type="radio" name="rating" value="3"> ⭐⭐⭐</label>
+                    <label><input class="radio" type="radio" name="rating" value="4"> ⭐⭐⭐⭐</label>
+                    <label><input class="radio" type="radio" name="rating" value="5" checked> ⭐⭐⭐⭐⭐</label>
+                </div>
+            </div>
+
+            <div class="group">
+                <label for="review">Your Review *</label>
+                <textarea id="review" placeholder="Tell us about your experience..." required></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-go">📤 Submit</button>
+            <button type="reset" class="btn btn-stop">Clear</button>
+        </form>
+    </div>
+
+</div>
+
+<!-- Footer -->
+<div class="foot">
+    <div>
+        <h3>LocalBiz</h3>
+        <button class="btn btn-go" style="padding:4px 18px; font-size:12px;">Sign Up</button>
+    </div>
+    <div>
+        <h4>Follow Us</h4>
+        <div class="social">📘 📸 ✖️ 🎵</div>
+        <div class="copy">Copyright 2023 LocalBiz</div>
+    </div>
+</div>
+
+</body>
+</html>
