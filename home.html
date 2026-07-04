@@ -91,20 +91,12 @@
             border: 1px solid #e2e8f0;
             overflow: hidden;
         }
-        .review-icon {
-            text-align: center;
-            padding: 24px;
-            font-size: 44px;
-            background: #f4ede4;
-        }
-        .icon-green {
-            background: #e8f0e7;
-        }
-        .icon-purple {
-            background: #f1eef4;
-        }
-        .icon-tan {
-            background: #f4ede4;
+        /* Uniform Image Sizing */
+        .review-img {
+            width: 100%;
+            height: 200px; /* Set fixed pixel height */
+            object-fit: cover; /* Ensures all images fill the box perfectly without stretching */
+            display: block;
         }
         .review-info {
             padding: 16px 18px 20px;
@@ -154,6 +146,7 @@
             align-items: center;
             gap: 14px;
         }
+        /* Uniform list thumbnails */
         .resto-icon {
             width: 44px;
             height: 44px;
@@ -162,7 +155,12 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 24px;
+            overflow: hidden;
+        }
+        .resto-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
         .resto-info h3 {
             font-size: 17px;
@@ -316,10 +314,10 @@
 
     <div class="section-title">📝 Recent Reviews</div>
 
-    <!-- 3x3 Reviews -->
+    <!-- 3x3 Reviews with Images (Fixed 200px height, width 100%) -->
     <div class="reviews-grid">
         <div class="review-card">
-            <div class="review-icon icon-tan">🍲</div>
+            <img src="as.jpg" alt="Jimbu Thakali Kitchen" class="review-img">
             <div class="review-info">
                 <div class="stars">★★★★★</div>
                 <div class="review-name">Jimbu Thakali Kitchen</div>
@@ -328,7 +326,7 @@
             </div>
         </div>
         <div class="review-card">
-            <div class="review-icon icon-green">🍽️</div>
+            <img src="images.jpg" alt="Soaltee Crowne Plaza" class="review-img">
             <div class="review-info">
                 <div class="stars">★★★★★</div>
                 <div class="review-name">Soaltee Crowne Plaza</div>
@@ -337,7 +335,7 @@
             </div>
         </div>
         <div class="review-card">
-            <div class="review-icon icon-purple">☕</div>
+            <img src="jo.jpg" alt="Oppazz Coffee House" class="review-img">
             <div class="review-info">
                 <div class="stars">★☆☆☆☆</div>
                 <div class="review-name">Oppazz Coffee House</div>
@@ -346,7 +344,7 @@
             </div>
         </div>
         <div class="review-card">
-            <div class="review-icon icon-tan">🍣</div>
+            <img src="klj.jpg" alt="Sakura Buchi Bar" class="review-img">
             <div class="review-info">
                 <div class="stars">★★★★½</div>
                 <div class="review-name">Sakura Buchi Bar</div>
@@ -355,7 +353,7 @@
             </div>
         </div>
         <div class="review-card">
-            <div class="review-icon icon-green">🥗</div>
+            <img src="kn.jpg" alt="Garden Bistro" class="review-img">
             <div class="review-info">
                 <div class="stars">★★★★☆</div>
                 <div class="review-name">Garden Bistro</div>
@@ -364,7 +362,7 @@
             </div>
         </div>
         <div class="review-card">
-            <div class="review-icon icon-purple">🍜</div>
+            <img src="lm.jpg" alt="Momo Magic Lounge" class="review-img">
             <div class="review-info">
                 <div class="stars">★★★★★</div>
                 <div class="review-name">Momo Magic Lounge</div>
@@ -373,7 +371,7 @@
             </div>
         </div>
         <div class="review-card">
-            <div class="review-icon icon-tan">🍕</div>
+            <img src="lp.jpg" alt="Rosemary Artisan Cafe" class="review-img">
             <div class="review-info">
                 <div class="stars">★★★★☆</div>
                 <div class="review-name">Rosemary Artisan Cafe</div>
@@ -382,7 +380,7 @@
             </div>
         </div>
         <div class="review-card">
-            <div class="review-icon icon-green">🍛</div>
+            <img src="oi.jpg" alt="The Spice Route" class="review-img">
             <div class="review-info">
                 <div class="stars">★★★★½</div>
                 <div class="review-name">The Spice Route</div>
@@ -391,7 +389,7 @@
             </div>
         </div>
         <div class="review-card">
-            <div class="review-icon icon-purple">☕</div>
+            <img src="yg.jpg" alt="Himalayan Java House" class="review-img">
             <div class="review-info">
                 <div class="stars">★★★★☆</div>
                 <div class="review-name">Himalayan Java House</div>
@@ -404,10 +402,10 @@
     <div class="section-title">🍽️ Restaurants</div>
 
     <div class="resto-list">
-        <!-- 1. Jimbu Thakali Kitchen - opens review.html -->
+        <!-- 1. Jimbu Thakali Kitchen -->
         <div class="resto-item">
             <div class="resto-left">
-                <div class="resto-icon">🍛</div>
+                <div class="resto-icon"><img src="as.jpg" alt="Thumb"></div>
                 <div class="resto-info">
                     <h3>Jimbu Thakali Kitchen</h3>
                     <div class="resto-cuisine">Nepali - Traditional</div>
@@ -422,7 +420,7 @@
         <!-- 2. Soaltee Crowne Plaza -->
         <div class="resto-item">
             <div class="resto-left">
-                <div class="resto-icon">🍷</div>
+                <div class="resto-icon"><img src="images.jpg" alt="Thumb"></div>
                 <div class="resto-info">
                     <h3>Soaltee Crowne Plaza</h3>
                     <div class="resto-cuisine">Fine Dining - International</div>
@@ -437,7 +435,7 @@
         <!-- 3. Garden Bistro -->
         <div class="resto-item">
             <div class="resto-left">
-                <div class="resto-icon">🥗</div>
+                <div class="resto-icon"><img src="jo.jpg" alt="Thumb"></div>
                 <div class="resto-info">
                     <h3>Garden Bistro</h3>
                     <div class="resto-cuisine">Healthy - Vegan</div>
@@ -452,7 +450,7 @@
         <!-- 4. Sakura Buchi Bar -->
         <div class="resto-item">
             <div class="resto-left">
-                <div class="resto-icon">🍣</div>
+                <div class="resto-icon"><img src="klj.jpg" alt="Thumb"></div>
                 <div class="resto-info">
                     <h3>Sakura Buchi Bar</h3>
                     <div class="resto-cuisine">Japanese - Sushi</div>
@@ -467,7 +465,7 @@
         <!-- 5. Oppazz Coffee House -->
         <div class="resto-item">
             <div class="resto-left">
-                <div class="resto-icon">☕</div>
+                <div class="resto-icon"><img src="kn.jpg" alt="Thumb"></div>
                 <div class="resto-info">
                     <h3>Oppazz Coffee House</h3>
                     <div class="resto-cuisine">Cafe - Brunch</div>
@@ -482,7 +480,7 @@
         <!-- 6. Momo Magic Lounge -->
         <div class="resto-item">
             <div class="resto-left">
-                <div class="resto-icon">🍜</div>
+                <div class="resto-icon"><img src="lm.jpg" alt="Thumb"></div>
                 <div class="resto-info">
                     <h3>Momo Magic Lounge</h3>
                     <div class="resto-cuisine">Asian - Dumplings</div>
@@ -497,7 +495,7 @@
         <!-- 7. Rosemary Artisan Cafe -->
         <div class="resto-item">
             <div class="resto-left">
-                <div class="resto-icon">🍕</div>
+                <div class="resto-icon"><img src="lp.jpg" alt="Thumb"></div>
                 <div class="resto-info">
                     <h3>Rosemary Artisan Cafe</h3>
                     <div class="resto-cuisine">Italian - Woodfire</div>
@@ -512,7 +510,7 @@
         <!-- 8. The Spice Route -->
         <div class="resto-item">
             <div class="resto-left">
-                <div class="resto-icon">🍛</div>
+                <div class="resto-icon"><img src="oi.jpg" alt="Thumb"></div>
                 <div class="resto-info">
                     <h3>The Spice Route</h3>
                     <div class="resto-cuisine">Indian - Mughlai</div>
@@ -527,7 +525,7 @@
         <!-- 9. Himalayan Java House -->
         <div class="resto-item">
             <div class="resto-left">
-                <div class="resto-icon">☕</div>
+                <div class="resto-icon"><img src="yg.jpg" alt="Thumb"></div>
                 <div class="resto-info">
                     <h3>Himalayan Java House</h3>
                     <div class="resto-cuisine">Coffee - Bakery</div>

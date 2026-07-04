@@ -1,582 +1,413 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>LocalBiz | Admin Dashboard</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LocalBiz | Admin Dashboard</title>
+    <style>
+        /* Minimal reset & base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+            color: #222;
+        }
 
-    body {
-      font-family: 'Segoe UI', Roboto, Arial, sans-serif;
-      background: #f8f9fc;
-      color: #1a1a2e;
-      padding: 0;
-    }
+        /* Header */
+        .header {
+            background: #6a4c9c;
+            padding: 12px 24px;
+            color: white;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-size: 22px;
+            font-weight: bold;
+        }
+        .nav a {
+            color: white;
+            text-decoration: none;
+            margin-right: 18px;
+            font-size: 14px;
+        }
+        .nav a:hover {
+            text-decoration: underline;
+        }
 
-    /* ========== HEADER / NAVBAR (LocalBiz style) ========== */
-    .header {
-      background: #7c5bb7;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 14px 32px;
-      flex-wrap: wrap;
-      gap: 15px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-    }
+        /* Container & sections */
+        .container {
+            padding: 20px 24px;
+        }
+        .page-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 18px;
+            border-left: 4px solid #6a4c9c;
+            padding-left: 12px;
+        }
+        .section {
+            background: white;
+            border: 1px solid #ddd;
+            padding: 16px 18px;
+            margin-bottom: 24px;
+        }
+        .section h2 {
+            font-size: 18px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 8px;
+            margin-bottom: 12px;
+        }
 
-    .logo {
-      color: white;
-      font-size: 24px;
-      font-weight: bold;
-      letter-spacing: -0.3px;
-    }
+        /* Tables */
+        .table-wrap {
+            overflow-x: auto;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+        th {
+            text-align: left;
+            background: #f0f0f0;
+            padding: 6px 8px;
+            border-bottom: 2px solid #ccc;
+        }
+        td {
+            padding: 8px;
+            border-bottom: 1px solid #eee;
+        }
 
-    .search-bar {
-      background: white;
-      padding: 6px 18px;
-      border-radius: 40px;
-      width: 260px;
-      color: #888;
-      font-size: 14px;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-    }
+        /* Badges */
+        .badge {
+            font-size: 10px;
+            padding: 2px 8px;
+            border-radius: 12px;
+            display: inline-block;
+        }
+        .badge-open {
+            background: #d4edda;
+            color: #155724;
+        }
+        .badge-closed {
+            background: #f8d7da;
+            color: #721c24;
+        }
 
-    .nav-links a {
-      color: white;
-      text-decoration: none;
-      margin-left: 22px;
-      font-size: 14px;
-      font-weight: 500;
-    }
+        /* Buttons */
+        .btn {
+            background: #eee;
+            border: 1px solid #bbb;
+            padding: 3px 12px;
+            border-radius: 4px;
+            font-size: 11px;
+            cursor: pointer;
+        }
+        .btn-danger {
+            background: #f8d7da;
+            border-color: #f5c6cb;
+            color: #721c24;
+        }
+        .btn-warning {
+            background: #fff3cd;
+            border-color: #ffeaa7;
+            color: #856404;
+        }
+        .btn:hover {
+            background: #ddd;
+        }
 
-    .nav-links a:hover {
-      text-decoration: underline;
-      opacity: 0.85;
-    }
+        /* Footer */
+        .footer {
+            background: #6a4c9c;
+            color: white;
+            padding: 18px 24px;
+            margin-top: 30px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .footer .signup-btn {
+            background: #f5c842;
+            border: none;
+            padding: 4px 20px;
+            border-radius: 30px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 13px;
+        }
+        .footer .signup-btn:hover {
+            background: #e6b830;
+        }
+        .footer .social {
+            font-size: 18px;
+            letter-spacing: 6px;
+        }
+        .footer .copy {
+            font-size: 11px;
+            opacity: 0.8;
+            margin-top: 4px;
+        }
 
-    /* ========== MAIN CONTAINER ========== */
-    .container {
-      padding: 28px 32px;
-    }
-
-    .admin-title {
-      font-size: 26px;
-      font-weight: bold;
-      margin-bottom: 24px;
-      border-left: 5px solid #7c5bb7;
-      padding-left: 14px;
-      color: #1a1a2e;
-    }
-
-    /* ========== DASHBOARD GRID ========== */
-    .dashboard-grid {
-      display: flex;
-      gap: 24px;
-      flex-wrap: wrap;
-      margin-bottom: 20px;
-    }
-
-    .card {
-      background: white;
-      border: 1px solid #e6eaf0;
-      border-radius: 20px;
-      padding: 20px;
-      flex: 1 1 320px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.04);
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
-
-    .card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 20px rgba(0,0,0,0.08);
-    }
-
-    .card-header {
-      font-size: 18px;
-      font-weight: 700;
-      margin-bottom: 16px;
-      padding-bottom: 10px;
-      border-bottom: 2px solid #f0ebf7;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      color: #2c2c3a;
-    }
-
-    /* row styles */
-    .row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 12px 0;
-      border-bottom: 1px solid #f1f5f9;
-      font-size: 13px;
-    }
-
-    .row:last-child {
-      border-bottom: none;
-    }
-
-    .user-info, .resto-info, .review-info {
-      flex: 1;
-    }
-
-    .user-name {
-      font-weight: 600;
-      color: #1a1a2e;
-    }
-
-    .user-email, .resto-address, .review-meta {
-      font-size: 11px;
-      color: #64748b;
-      display: block;
-      margin-top: 2px;
-    }
-
-    .resto-cuisine {
-      font-size: 11px;
-      background: #f0ebf7;
-      color: #7c5bb7;
-      padding: 2px 8px;
-      border-radius: 20px;
-      display: inline-block;
-      margin-top: 3px;
-    }
-
-    .stars-small {
-      color: #f5a623;
-      font-size: 11px;
-      letter-spacing: 1px;
-    }
-
-    .review-text {
-      font-size: 12px;
-      font-weight: 500;
-      color: #1e293b;
-    }
-
-    .action-buttons {
-      display: flex;
-      gap: 6px;
-      align-items: center;
-    }
-
-    .btn {
-      background: #f1f5f9;
-      border: 1px solid #d1d5db;
-      padding: 4px 12px;
-      border-radius: 30px;
-      font-size: 10px;
-      font-weight: 500;
-      cursor: pointer;
-      transition: all 0.2s;
-      color: #334155;
-    }
-
-    .btn:hover {
-      background: #e2e8f0;
-      transform: scale(0.96);
-    }
-
-    .btn-danger {
-      background: #fee2e2;
-      border-color: #fecaca;
-      color: #b91c1c;
-    }
-
-    .btn-danger:hover {
-      background: #fecaca;
-    }
-
-    .btn-warning {
-      background: #fff3e3;
-      border-color: #ffe4b5;
-      color: #b45309;
-    }
-
-    /* status badges */
-    .status-badge {
-      font-size: 9px;
-      padding: 2px 8px;
-      border-radius: 30px;
-      display: inline-block;
-      margin-right: 6px;
-    }
-    .status-open {
-      background: #dff0e4;
-      color: #1f7840;
-    }
-    .status-closed {
-      background: #ffe3dc;
-      color: #bc3900;
-    }
-
-    /* ========== FOOTER (LocalBiz style) ========== */
-    .footer {
-      background: #7c5bb7;
-      color: white;
-      padding: 28px 36px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      margin-top: 40px;
-      gap: 20px;
-      border-radius: 24px 24px 0 0;
-    }
-
-    .footer-left h3 {
-      font-size: 22px;
-      margin-bottom: 10px;
-    }
-
-    .signup-btn {
-      background: #ffcd7e;
-      border: none;
-      padding: 6px 22px;
-      border-radius: 40px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: 0.2s;
-      font-size: 13px;
-      color: #3a2a1c;
-    }
-
-    .signup-btn:hover {
-      background: #ffc064;
-      transform: scale(0.96);
-    }
-
-    .footer-right h4 {
-      margin-bottom: 6px;
-      font-size: 16px;
-    }
-
-    .social-icons {
-      font-size: 20px;
-      letter-spacing: 8px;
-    }
-
-    .copyright {
-      font-size: 11px;
-      opacity: 0.8;
-      margin-top: 8px;
-    }
-
-    /* ========== RESPONSIVE ========== */
-    @media (max-width: 900px) {
-      .header {
-        flex-direction: column;
-        align-items: stretch;
-        text-align: center;
-        padding: 14px 20px;
-      }
-      .nav-links {
-        display: flex;
-        justify-content: center;
-        gap: 18px;
-      }
-      .nav-links a {
-        margin-left: 0;
-      }
-      .container {
-        padding: 20px;
-      }
-      .dashboard-grid {
-        flex-direction: column;
-      }
-      .footer {
-        flex-direction: column;
-        text-align: center;
-      }
-    }
-
-    @media (max-width: 550px) {
-      .row {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 8px;
-      }
-      .action-buttons {
-        align-self: flex-end;
-      }
-    }
-  </style>
+        /* Simple responsive */
+        @media (max-width: 700px) {
+            .header,
+            .footer {
+                flex-direction: column;
+                text-align: center;
+                gap: 10px;
+            }
+            .nav a {
+                margin: 0 8px;
+            }
+        }
+    </style>
 </head>
 <body>
 
-  <!-- LocalBiz style header (exactly from the original design) -->
-  <div class="header">
-    <div class="logo">🍴 LocalBiz</div>
-    <div class="search-bar">🔍 Admin dashboard...</div>
-    <div class="nav-links">
-      <a href="#">Home</a>
-      <a href="#">Gallery</a>
-      <a href="#">About Us</a>
-      <a href="#">Contact Us</a>
-    </div>
-  </div>
-
-  <!-- main admin content -->
-  <div class="container">
-    <div class="admin-title">📊 Admin Dashboard</div>
-
-    <div class="dashboard-grid">
-      <!-- Manage Users Card (sample users with realistic data) -->
-      <div class="card">
-        <div class="card-header">
-          👥 Users
+    <!-- ===== HEADER ===== -->
+    <div class="header">
+        <div class="logo">🍴 LocalBiz</div>
+        <div class="nav">
+            <a href="#">Home</a>
+            <a href="#">Review</a>
+            <a href="#">Admin</a>
+            <a href="#">Login</a>
         </div>
-        <div class="row">
-          <div class="user-info">
-            <span class="user-name">Elena Rossi</span>
-            <span class="user-email">elena@localbiz.com</span>
-          </div>
-          <div class="action-buttons">
-            <button class="btn">edit</button>
-            <button class="btn btn-warning">suspend</button>
-          </div>
-        </div>
-        <div class="row">
-          <div class="user-info">
-            <span class="user-name">Marco Bianchi</span>
-            <span class="user-email">marco@localbiz.com</span>
-          </div>
-          <div class="action-buttons">
-            <button class="btn">edit</button>
-            <button class="btn btn-warning">suspend</button>
-          </div>
-        </div>
-        <div class="row">
-          <div class="user-info">
-            <span class="user-name">Sophie Chen</span>
-            <span class="user-email">sophie@localbiz.com</span>
-          </div>
-          <div class="action-buttons">
-            <button class="btn">edit</button>
-            <button class="btn btn-warning">suspend</button>
-          </div>
-        </div>
-        <div class="row">
-          <div class="user-info">
-            <span class="user-name">Aarav Sharma</span>
-            <span class="user-email">aarav@localbiz.com</span>
-          </div>
-          <div class="action-buttons">
-            <button class="btn">edit</button>
-            <button class="btn btn-warning">suspend</button>
-          </div>
-        </div>
-        <div class="row">
-          <div class="user-info">
-            <span class="user-name">Priya K.C.</span>
-            <span class="user-email">priya@localbiz.com</span>
-          </div>
-          <div class="action-buttons">
-            <button class="btn">edit</button>
-            <button class="btn btn-warning">suspend</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="card-header">
-          🍽️ Restaurants
-        </div>
-        <!-- 1. Jimbu Thakali Kitchen -->
-        <div class="row">
-          <div class="resto-info">
-            <span class="user-name">Jimbu Thakali Kitchen</span>
-            <div class="resto-cuisine">Nepali - Traditional</div>
-            <span class="resto-address">📍 Chantelville, Lalitpur</span>
-          </div>
-          <div class="action-buttons">
-            <span class="status-badge status-open">Open</span>
-            <button class="btn">edit</button>
-            <button class="btn btn-danger">remove</button>
-          </div>
-        </div>
-        <!-- 2. Soaltee Crowne Plaza -->
-        <div class="row">
-          <div class="resto-info">
-            <span class="user-name">Soaltee Crowne Plaza</span>
-            <div class="resto-cuisine">Fine Dining - International</div>
-            <span class="resto-address">📍 Kalimati, Kathmandu</span>
-          </div>
-          <div class="action-buttons">
-            <span class="status-badge status-open">Open</span>
-            <button class="btn">edit</button>
-            <button class="btn btn-danger">remove</button>
-          </div>
-        </div>
-        <!-- 3. Garden Bistro -->
-        <div class="row">
-          <div class="resto-info">
-            <span class="user-name">Garden Bistro</span>
-            <div class="resto-cuisine">Healthy - Vegan</div>
-            <span class="resto-address">📍 Patan, Lalitpur</span>
-          </div>
-          <div class="action-buttons">
-            <span class="status-badge status-open">Open</span>
-            <button class="btn">edit</button>
-            <button class="btn btn-danger">remove</button>
-          </div>
-        </div>
-        <!-- 4. Sakura Buchi Bar -->
-        <div class="row">
-          <div class="resto-info">
-            <span class="user-name">Sakura Buchi Bar</span>
-            <div class="resto-cuisine">Japanese - Sushi</div>
-            <span class="resto-address">📍 Thamel, Kathmandu</span>
-          </div>
-          <div class="action-buttons">
-            <span class="status-badge status-open">Open</span>
-            <button class="btn">edit</button>
-            <button class="btn btn-danger">remove</button>
-          </div>
-        </div>
-        <!-- 5. Oppazz Coffee House (Closed) -->
-        <div class="row">
-          <div class="resto-info">
-            <span class="user-name">Oppazz Coffee House</span>
-            <div class="resto-cuisine">Cafe - Brunch</div>
-            <span class="resto-address">📍 Jhamsikhel, Lalitpur</span>
-          </div>
-          <div class="action-buttons">
-            <span class="status-badge status-closed">Closed</span>
-            <button class="btn">edit</button>
-            <button class="btn btn-danger">remove</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Manage Reviews Card - EXACT 5 reviews from homepage -->
-      <div class="card">
-        <div class="card-header">
-          💬 Reviews
-        </div>
-        <!-- Review 1: Jimbu Thakali -->
-        <div class="row">
-          <div class="review-info">
-            <span class="review-text">"The food is flavourful, fresh, and served in generous portions."</span>
-            <div class="review-meta">by Elena Rossi · <span class="stars-small">★★★★★</span> · Jimbu Thakali Kitchen</div>
-          </div>
-          <div class="action-buttons">
-            <button class="btn">view</button>
-            <button class="btn btn-danger">delete</button>
-          </div>
-        </div>
-        <!-- Review 2: Soaltee Crowne Plaza -->
-        <div class="row">
-          <div class="review-info">
-            <span class="review-text">"Elegant ambiance and delicious food. A wonderful fine dining experience."</span>
-            <div class="review-meta">by Marco Bianchi · <span class="stars-small">★★★★★</span> · Soaltee Crowne Plaza</div>
-          </div>
-          <div class="action-buttons">
-            <button class="btn">view</button>
-            <button class="btn btn-danger">delete</button>
-          </div>
-        </div>
-        <!-- Review 3: Oppazz Coffee House -->
-        <div class="row">
-          <div class="review-info">
-            <span class="review-text">"Disappointing experience. Service was slow and coffee was cold."</span>
-            <div class="review-meta">by Sophie Chen · <span class="stars-small">★☆☆☆☆</span> · Oppazz Coffee House</div>
-          </div>
-          <div class="action-buttons">
-            <button class="btn">view</button>
-            <button class="btn btn-danger">delete</button>
-          </div>
-        </div>
-        <!-- Review 4: Sakura Buchi Bar -->
-        <div class="row">
-          <div class="review-info">
-            <span class="review-text">"Incredible sushi rolls and cozy atmosphere. The sake selection is amazing!"</span>
-            <div class="review-meta">by Aarav Sharma · <span class="stars-small">★★★★½</span> · Sakura Buchi Bar</div>
-          </div>
-          <div class="action-buttons">
-            <button class="btn">view</button>
-            <button class="btn btn-danger">delete</button>
-          </div>
-        </div>
-        <!-- Review 5: Garden Bistro -->
-        <div class="row">
-          <div class="review-info">
-            <span class="review-text">"Fresh vegan bowls and organic smoothies. A hidden gem for healthy food lovers."</span>
-            <div class="review-meta">by Priya K.C. · <span class="stars-small">★★★★☆</span> · Garden Bistro</div>
-          </div>
-          <div class="action-buttons">
-            <button class="btn">view</button>
-            <button class="btn btn-danger">delete</button>
-          </div>
-        </div>
-      </div>
     </div>
 
-    <!-- Second row: Platform stats and quick actions-->
-    <div class="dashboard-grid" style="margin-top: 8px;">
-      <div class="card">
-        <div class="card-header">
-          📈 Platform Stats
-        </div>
-        <div class="row">
-          <span>Total Users</span>
-          <strong>1,453</strong>
-        </div>
-        <div class="row">
-          <span>Total Restaurants</span>
-          <strong>24</strong>
-        </div>
-        <div class="row">
-          <span>Total Reviews</span>
-          <strong>892</strong>
-        </div>
-        <div class="row">
-          <span>Active Reports</span>
-          <strong>2</strong>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-header">
-          ⚙️ Quick Actions
-        </div>
-        <div class="row">
-          <span>➕ Add new restaurant</span>
-          <button class="btn">create</button>
-        </div>
-        <div class="row">
-          <span>👑 Promote to admin</span>
-          <button class="btn">manage</button>
-        </div>
-        <div class="row">
-          <span>📢 Announcement</span>
-          <button class="btn">post</button>
-        </div>
-        <div class="row">
-          <span>📅 Export reports</span>
-          <button class="btn">export</button>
-        </div>
-      </div>
-    </div>
-  </div>
+    <!-- ===== MAIN ===== -->
+    <div class="container">
 
-  <!-- LocalBiz style footer -->
-  <div class="footer">
-    <div class="footer-left">
-      <h3>LocalBiz</h3>
-      <button class="signup-btn" onclick="alert('✨ Admin panel — Manage your local business community ✨')">Sign Up</button>
+        <div class="page-title">📊 Admin Dashboard</div>
+
+        <!-- Users -->
+        <div class="section">
+            <h2>👥 Users</h2>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Elena Rossi</td>
+                            <td>elena@localbiz.com</td>
+                            <td>
+                                <button class="btn btn-danger" onclick="showAlert('Delete', 'Elena Rossi')">delete</button>
+                                <button class="btn btn-warning" onclick="showAlert('Suspend', 'Elena Rossi')">suspend</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Marco Bianchi</td>
+                            <td>marco@localbiz.com</td>
+                            <td>
+                                <button class="btn btn-danger" onclick="showAlert('Delete', 'Marco Bianchi')">delete</button>
+                                <button class="btn btn-warning" onclick="showAlert('Suspend', 'Marco Bianchi')">suspend</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Sophie Chen</td>
+                            <td>sophie@localbiz.com</td>
+                            <td>
+                                <button class="btn btn-danger" onclick="showAlert('Delete', 'Sophie Chen')">delete</button>
+                                <button class="btn btn-warning" onclick="showAlert('Suspend', 'Sophie Chen')">suspend</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Aarav Sharma</td>
+                            <td>aarav@localbiz.com</td>
+                            <td>
+                                <button class="btn btn-danger" onclick="showAlert('Delete', 'Aarav Sharma')">delete</button>
+                                <button class="btn btn-warning" onclick="showAlert('Suspend', 'Aarav Sharma')">suspend</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Priya K.C.</td>
+                            <td>priya@localbiz.com</td>
+                            <td>
+                                <button class="btn btn-danger" onclick="showAlert('Delete', 'Priya K.C.')">delete</button>
+                                <button class="btn btn-warning" onclick="showAlert('Suspend', 'Priya K.C.')">suspend</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Restaurants -->
+        <div class="section">
+            <h2>🍽️ Restaurants</h2>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Cuisine</th>
+                            <th>Location</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Jimbu Thakali Kitchen</td>
+                            <td>Nepali - Traditional</td>
+                            <td>Chantelville, Lalitpur</td>
+                            <td><span class="badge badge-open">Open</span></td>
+                            <td>
+                                <button class="btn btn-danger" onclick="showAlert('Delete', 'Jimbu Thakali Kitchen')">delete</button>
+                                <button class="btn btn-danger" onclick="showAlert('Remove', 'Jimbu Thakali Kitchen')">remove</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Soaltee Crowne Plaza</td>
+                            <td>Fine Dining - International</td>
+                            <td>Kalimati, Kathmandu</td>
+                            <td><span class="badge badge-open">Open</span></td>
+                            <td>
+                                <button class="btn btn-danger" onclick="showAlert('Delete', 'Soaltee Crowne Plaza')">delete</button>
+                                <button class="btn btn-danger" onclick="showAlert('Remove', 'Soaltee Crowne Plaza')">remove</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Garden Bistro</td>
+                            <td>Healthy - Vegan</td>
+                            <td>Patan, Lalitpur</td>
+                            <td><span class="badge badge-open">Open</span></td>
+                            <td>
+                                <button class="btn btn-danger" onclick="showAlert('Delete', 'Garden Bistro')">delete</button>
+                                <button class="btn btn-danger" onclick="showAlert('Remove', 'Garden Bistro')">remove</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Sakura Buchi Bar</td>
+                            <td>Japanese - Sushi</td>
+                            <td>Thamel, Kathmandu</td>
+                            <td><span class="badge badge-open">Open</span></td>
+                            <td>
+                                <button class="btn btn-danger" onclick="showAlert('Delete', 'Sakura Buchi Bar')">delete</button>
+                                <button class="btn btn-danger" onclick="showAlert('Remove', 'Sakura Buchi Bar')">remove</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Oppazz Coffee House</td>
+                            <td>Cafe - Brunch</td>
+                            <td>Jhamsikhel, Lalitpur</td>
+                            <td><span class="badge badge-closed">Closed</span></td>
+                            <td>
+                                <button class="btn btn-danger" onclick="showAlert('Delete', 'Oppazz Coffee House')">delete</button>
+                                <button class="btn btn-danger" onclick="showAlert('Remove', 'Oppazz Coffee House')">remove</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Reviews -->
+        <div class="section">
+            <h2>💬 Reviews</h2>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Review</th>
+                            <th>User</th>
+                            <th>Rating</th>
+                            <th>Restaurant</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>"The food is flavourful, fresh, and served in generous portions."</td>
+                            <td>Elena Rossi</td>
+                            <td>★★★★★</td>
+                            <td>Jimbu Thakali Kitchen</td>
+                            <td>
+                                <button class="btn">view</button>
+                                <button class="btn btn-danger" onclick="showAlert('Delete', 'review by Elena Rossi')">delete</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>"Elegant ambiance and delicious food. A wonderful fine dining experience."</td>
+                            <td>Marco Bianchi</td>
+                            <td>★★★★★</td>
+                            <td>Soaltee Crowne Plaza</td>
+                            <td>
+                                <button class="btn">view</button>
+                                <button class="btn btn-danger" onclick="showAlert('Delete', 'review by Marco Bianchi')">delete</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>"Disappointing experience. Service was slow and coffee was cold."</td>
+                            <td>Sophie Chen</td>
+                            <td>★☆☆☆☆</td>
+                            <td>Oppazz Coffee House</td>
+                            <td>
+                                <button class="btn">view</button>
+                                <button class="btn btn-danger" onclick="showAlert('Delete', 'review by Sophie Chen')">delete</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>"Incredible sushi rolls and cozy atmosphere. The sake selection is amazing!"</td>
+                            <td>Aarav Sharma</td>
+                            <td>★★★★½</td>
+                            <td>Sakura Buchi Bar</td>
+                            <td>
+                                <button class="btn">view</button>
+                                <button class="btn btn-danger" onclick="showAlert('Delete', 'review by Aarav Sharma')">delete</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>"Fresh vegan bowls and organic smoothies. A hidden gem for healthy food lovers."</td>
+                            <td>Priya K.C.</td>
+                            <td>★★★★☆</td>
+                            <td>Garden Bistro</td>
+                            <td>
+                                <button class="btn">view</button>
+                                <button class="btn btn-danger" onclick="showAlert('Delete', 'review by Priya K.C.')">delete</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
     </div>
-    <div class="footer-right">
-      <h4>Follow Us</h4>
-      <div class="social-icons">📘 📸 ✖️ 🎵</div>
-      <div class="copyright">Copyright 2023 LocalBiz</div>
+
+    <!-- ===== FOOTER ===== -->
+    <div class="footer">
+        <div>
+            <strong style="font-size:20px;">LocalBiz</strong><br />
+            <button class="signup-btn" onclick="alert('✨ Admin panel — Manage your local business community ✨')">Sign Up</button>
+        </div>
+        <div>
+            <div><strong>Follow Us</strong></div>
+            <div class="social">📘 📸 ✖️ 🎵</div>
+            <div class="copy">Copyright 2023 LocalBiz</div>
+        </div>
     </div>
-  </div>
+
+    
+    <script>
+        function showAlert(action, name) {
+            alert(action + ' action triggered for: ' + name);
+        }
+    </script>
+
 </body>
 </html>
