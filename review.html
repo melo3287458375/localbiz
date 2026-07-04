@@ -330,10 +330,10 @@
     </form>
 
     <div class="menu">
-        <a href="#">Home</a>
-        <a href="#">My Reviews</a>
-        <a href="#">About</a>
-        <a href="#">Contact</a>
+        <a href="home.html">Home</a>
+        <a href="review.html">Reviews</a>
+        <a href="admin.html">Admin</a>
+        <a href="auth.html">Login</a>
     </div>
 </div>
 
@@ -441,7 +441,7 @@
         <h3>Share your experience</h3>
         <div class="hint">Your feedback helps others discover great places</div>
 
-        <form>
+        <form onsubmit="handleSubmit(event)">
             <div class="group">
                 <label for="name">Your Name *</label>
                 <input type="text" id="name" placeholder="Enter your name" required>
@@ -482,6 +482,15 @@
         <div class="copy">Copyright 2023 LocalBiz</div>
     </div>
 </div>
+
+<script>
+    function handleSubmit(event) {
+        event.preventDefault(); // Prevent form from reloading the page
+        alert("Thank you for your review!");
+        // Optionally reset the form after alert
+        event.target.reset();
+    }
+</script>
 
 </body>
 </html>
