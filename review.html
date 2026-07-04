@@ -368,10 +368,10 @@
 
         <h3 style="margin:18px 0 14px 0; font-size:18px;">💬 Customer Reviews</h3>
 
-        <!-- Review 1 -->
+        <!-- Review 1 - Nepali name in English -->
         <div class="item">
             <div class="item-head">
-                <span class="name">Elena Rossi</span>
+                <span class="name">Sujata Sharma</span>
                 <span class="star">★★★★★</span>
             </div>
             <div class="item-head">
@@ -381,10 +381,10 @@
             <div class="text">The food is flavourful, fresh, and served in generous portions. Authentic Nepali taste!</div>
         </div>
 
-        <!-- Review 2 -->
+        <!-- Review 2 - Nepali name in English -->
         <div class="item">
             <div class="item-head">
-                <span class="name">Aarav Sharma</span>
+                <span class="name">Bikram Thapa</span>
                 <span class="star">★★★★★</span>
             </div>
             <div class="item-head">
@@ -394,10 +394,10 @@
             <div class="text">One of the best thali places in Lalitpur. The jimbu aroma is incredible.</div>
         </div>
 
-        <!-- Review 3 -->
+        <!-- Review 3 - Nepali name in English -->
         <div class="item">
             <div class="item-head">
-                <span class="name">Priya K.C.</span>
+                <span class="name">Geeta Adhikari</span>
                 <span class="star">★★★★☆</span>
             </div>
             <div class="item-head">
@@ -407,10 +407,10 @@
             <div class="text">Great food but service was a bit slow when crowded. Still worth visiting.</div>
         </div>
 
-        <!-- Review 4 -->
+        <!-- Review 4 - Nepali name in English -->
         <div class="item">
             <div class="item-head">
-                <span class="name">Marco Bianchi</span>
+                <span class="name">Ram Prasad Nyupane</span>
                 <span class="star">★★★★★</span>
             </div>
             <div class="item-head">
@@ -420,18 +420,6 @@
             <div class="text">Absolutely delicious! The dal and vegetables were perfect.</div>
         </div>
 
-        <!-- Review 5 -->
-        <div class="item">
-            <div class="item-head">
-                <span class="name">Sophie Chen</span>
-                <span class="star">★★★★☆</span>
-            </div>
-            <div class="item-head">
-                <span></span>
-                <span class="date">1 month ago</span>
-            </div>
-            <div class="text">Loved the traditional atmosphere and friendly staff.</div>
-        </div>
     </div>
 
     <!-- Write a Review -->
@@ -450,11 +438,11 @@
             <div class="group">
                 <label>Rating *</label>
                 <div class="rating-box">
-                    <label><input class="radio" type="radio" name="rating" value="1" required> ⭐</label>
+                    <label><input class="radio" type="radio" name="rating" value="1"> ⭐</label>
                     <label><input class="radio" type="radio" name="rating" value="2"> ⭐⭐</label>
                     <label><input class="radio" type="radio" name="rating" value="3"> ⭐⭐⭐</label>
                     <label><input class="radio" type="radio" name="rating" value="4"> ⭐⭐⭐⭐</label>
-                    <label><input class="radio" type="radio" name="rating" value="5" checked> ⭐⭐⭐⭐⭐</label>
+                    <label><input class="radio" type="radio" name="rating" value="5"> ⭐⭐⭐⭐⭐</label>
                 </div>
             </div>
 
@@ -474,7 +462,7 @@
 <div class="foot">
     <div>
         <h3>LocalBiz</h3>
-        <button class="btn btn-go" style="padding:4px 18px; font-size:12px;">Sign Up</button>
+        <a href="auth.html"><button class="btn btn-go" style="padding:4px 18px; font-size:12px;">Sign Up</button></a>
     </div>
     <div>
         <h4>Follow Us</h4>
@@ -485,9 +473,8 @@
 
 <script>
     function handleSubmit(event) {
-        event.preventDefault(); // Prevent form from reloading the page
+        event.preventDefault();
         alert("Thank you for your review!");
-        // Optionally reset the form after alert
         event.target.reset();
     }
 </script>

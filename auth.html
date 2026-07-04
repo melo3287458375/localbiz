@@ -124,7 +124,9 @@
       accent-color: #7c5bb7;
     }
 
-    .btn {
+    /* button styled as a link, but we keep the .btn class for appearance */
+    .btn-link {
+      display: block;
       width: 100%;
       background: #7c5bb7;
       color: white;
@@ -135,10 +137,15 @@
       font-weight: bold;
       cursor: pointer;
       margin-top: 12px;
+      text-align: center;
+      text-decoration: none;
+      font-family: inherit;
+      transition: background 0.15s;
     }
 
-    .btn:hover {
+    .btn-link:hover {
       background: #6a4a9e;
+      text-decoration: none;
     }
 
     /* Footer */
@@ -204,12 +211,12 @@
       <form>
         <div class="form-group">
           <label>Full name</label>
-          <input type="text" placeholder="John Doe" required>
+          <input type="text" placeholder="username" required>
         </div>
 
         <div class="form-group">
           <label>Email</label>
-          <input type="email" placeholder="hello@localbiz.com" required>
+          <input type="email" placeholder="example@gmail.com" required>
         </div>
 
         <div class="form-group">
@@ -221,7 +228,7 @@
           <label>I am a:</label>
           <div class="role-group">
             <label class="role-option">
-              <input type="radio" name="role" value="customer" checked> Customer
+              <input type="radio" name="role" value="customer"> Customer
             </label>
             <label class="role-option">
               <input type="radio" name="role" value="owner"> Business Owner
@@ -229,7 +236,8 @@
           </div>
         </div>
 
-        <button type="button" class="btn">Continue →</button>
+        <!-- Continue button now links to home.html -->
+        <a href="home.html" class="btn-link">Continue →</a>
       </form>
     </div>
   </div>
